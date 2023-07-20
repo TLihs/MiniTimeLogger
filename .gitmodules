@@ -1,0 +1,3 @@
+[submodule "WPFExceptionHandler"]
+	path = WPFExceptionHandler
+	url = https://github.com/TLihs/WPFExceptionHandler.git
