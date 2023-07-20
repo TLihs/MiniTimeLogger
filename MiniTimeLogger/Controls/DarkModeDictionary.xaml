@@ -1,0 +1,251 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Name="Dictionary_DarkMode">
+
+    <SolidColorBrush x:Key="Window_Background_DarkMode" Color="#202020"/>
+    <SolidColorBrush x:Key="Window_Foreground_DarkMode" Color="#DDDDDD"/>
+    <SolidColorBrush x:Key="Window_Border_DarkMode" Color="#252525"/>
+
+    <SolidColorBrush x:Key="Control_Background_DarkMode" Color="#202020"/>
+    <SolidColorBrush x:Key="Control_Foreground_DarkMode" Color="#DFDFDF"/>
+    <SolidColorBrush x:Key="Control_Border_DarkMode" Color="#353535"/>
+
+    <SolidColorBrush x:Key="Content_Background_DarkMode" Color="#1E1E1E"/>
+    <SolidColorBrush x:Key="Content_Foreground_DarkMode" Color="#EEEEEE"/>
+    <SolidColorBrush x:Key="Content_Border_DarkMode" Color="#353535"/>
+
+    <SolidColorBrush x:Key="FocusedControl_Background_DarkMode" Color="#2D2D2D"/>
+    <SolidColorBrush x:Key="FocusedControl_Foreground_DarkMode" Color="#FAFAFA"/>
+    <SolidColorBrush x:Key="FocusedControl_Border_DarkMode" Color="#353535"/>
+
+    <SolidColorBrush x:Key="InactiveControl_Background_DarkMode" Color="#202020"/>
+    <SolidColorBrush x:Key="InactiveControl_Foreground_DarkMode" Color="#BFBFBF"/>
+    <SolidColorBrush x:Key="InactiveControl_Border_DarkMode" Color="#282828"/>
+
+    <Style x:Key="CheckBox_DarkMode" TargetType="CheckBox">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Foreground" Value="{StaticResource Control_Foreground_DarkMode}"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="Label_DarkMode" TargetType="Label">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Foreground" Value="{StaticResource Control_Foreground_DarkMode}"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style.Setters>
+    </Style>
+
+    <SolidColorBrush x:Key="Input_Background_DarkMode" Color="#191919"/>
+    <SolidColorBrush x:Key="Input_Foreground_DarkMode" Color="#DDDDDD"/>
+    <SolidColorBrush x:Key="Input_Border_DarkMode" Color="#2D2D2D"/>
+    <Thickness x:Key="Input_Margin" Left="2" Top="2" Right="2" Bottom="2"/>
+    <Thickness x:Key="PathSelectionInput_Margin" Left="2" Top="2" Right="0" Bottom="2"/>
+
+    <Style x:Key="InputTextBox_DarkMode" TargetType="{x:Type TextBox}">
+        <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource Input_Background_DarkMode}"/>
+            <Setter Property="Foreground" Value="{StaticResource Input_Foreground_DarkMode}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Input_Border_DarkMode}"/>
+            <Setter Property="Margin" Value="{StaticResource Input_Margin}"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style.Setters>
+    </Style>
+
+    <SolidColorBrush x:Key="Button_Idle_Background_DarkMode" Color="#3D3D3D"/>
+    <SolidColorBrush x:Key="Button_Idle_Foreground_DarkMode" Color="#DDDDDD"/>
+    <SolidColorBrush x:Key="Button_Idle_Border_DarkMode" Color="#1A1A1A"/>
+    <SolidColorBrush x:Key="Button_Hover_Background_DarkMode" Color="#BB6600"/>
+    <SolidColorBrush x:Key="Button_Hover_Foreground_DarkMode" Color="#DDDDDD"/>
+    <SolidColorBrush x:Key="Button_Pressed_Background_DarkMode" Color="#885511"/>
+    <SolidColorBrush x:Key="Button_Pressed_Foreground_DarkMode" Color="#DDDDDD"/>
+    <Thickness x:Key="Button_Margin" Left="3" Top="3" Right="3" Bottom="3"/>
+    <Thickness x:Key="PathSelectionButton_Margin" Left="0" Top="2" Right="2" Bottom="2"/>
+
+    <SolidColorBrush x:Key="RemoveButton_Idle_Foreground_DarkMode" Color="#991111"/>
+    <SolidColorBrush x:Key="RemoveButton_Hover_Foreground_DarkMode" Color="#BB2222"/>
+    <SolidColorBrush x:Key="RemoveButton_Pressed_Foreground_DarkMode" Color="#550000"/>
+
+    <Style x:Key="PathSelectionTextBox_DarkMode" TargetType="{x:Type TextBox}">
+        <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource Input_Background_DarkMode}"/>
+            <Setter Property="Foreground" Value="{StaticResource Input_Foreground_DarkMode}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Input_Border_DarkMode}"/>
+            <Setter Property="Margin" Value="{StaticResource PathSelectionInput_Margin}"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="Button_DarkMode" TargetType="{x:Type Button}">
+        <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource Button_Idle_Background_DarkMode}"/>
+            <Setter Property="Foreground" Value="{StaticResource Button_Idle_Foreground_DarkMode}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button_Idle_Border_DarkMode}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="{StaticResource Button_Margin}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="1"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}"
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource Button_Hover_Background_DarkMode}" />
+                                <Setter Property="Foreground" Value="{StaticResource Button_Hover_Foreground_DarkMode}" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource Button_Pressed_Background_DarkMode}" />
+                                <Setter Property="Foreground" Value="{StaticResource Button_Pressed_Foreground_DarkMode}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="PathSelectionButton_DarkMode" TargetType="{x:Type Button}">
+        <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource Button_Idle_Background_DarkMode}"/>
+            <Setter Property="Foreground" Value="{StaticResource Button_Idle_Foreground_DarkMode}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button_Idle_Border_DarkMode}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="{StaticResource PathSelectionButton_Margin}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="1"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}"
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,2,2,2" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource Button_Hover_Background_DarkMode}" />
+                                <Setter Property="Foreground" Value="{StaticResource Button_Hover_Foreground_DarkMode}" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource Button_Pressed_Background_DarkMode}" />
+                                <Setter Property="Foreground" Value="{StaticResource Button_Pressed_Foreground_DarkMode}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="RemoveButton_DarkMode" TargetType="{x:Type Button}">
+        <Style.Setters>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource RemoveButton_Idle_Foreground_DarkMode}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="{StaticResource PathSelectionButton_Margin}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Label x:Name="Label_Content" Content="X"
+                                   Margin="2,2,2,2"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                   FontWeight="SemiBold" Foreground="{TemplateBinding Foreground}"/>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource RemoveButton_Hover_Foreground_DarkMode}" />
+                                <Setter TargetName="Label_Content" Property="FontWeight" Value="Bold"/>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource RemoveButton_Pressed_Foreground_DarkMode}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="TabControl_DarkMode" TargetType="{x:Type TabControl}">
+        <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource Control_Background_DarkMode}"/>
+            <Setter Property="Foreground" Value="{StaticResource Control_Foreground_DarkMode}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Control_Border_DarkMode}"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="TabItem_DarkMode" TargetType="{x:Type TabItem}">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Grid>
+                        <Border x:Name="ContentBorder">
+                            <Border x:Name="FocusBorder" BorderBrush="{StaticResource Button_Pressed_Background_DarkMode}">
+                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center"
+                                                              HorizontalAlignment="Center"
+                                                              ContentSource="Header" Margin="12,2,12,2"
+                                                              RecognizesAccessKey="True"/>
+                            </Border>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="ContentBorder" Property="Background" Value="{StaticResource FocusedControl_Background_DarkMode}"/>
+                            <Setter TargetName="ContentBorder" Property="BorderBrush" Value="{StaticResource FocusedControl_Border_DarkMode}"/>
+                            <Setter TargetName="ContentBorder" Property="BorderThickness" Value="1,0,1,0"/>
+                            <Setter TargetName="FocusBorder" Property="BorderThickness" Value="0,2,0,0"/>
+                            <Setter Property="Background" Value="{StaticResource FocusedControl_Background_DarkMode}"/>
+                            <Setter Property="Foreground" Value="{StaticResource FocusedControl_Foreground_DarkMode}"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="ContentBorder" Property="Background" Value="{StaticResource InactiveControl_Background_DarkMode}"/>
+                            <Setter TargetName="ContentBorder" Property="BorderBrush" Value="{StaticResource InactiveControl_Border_DarkMode}"/>
+                            <Setter TargetName="ContentBorder" Property="BorderThickness" Value="1,1,1,1"/>
+                            <Setter TargetName="FocusBorder" Property="BorderThickness" Value="0"/>
+                            <Setter Property="Background" Value="{StaticResource InactiveControl_Background_DarkMode}"/>
+                            <Setter Property="Foreground" Value="{StaticResource InactiveControl_Foreground_DarkMode}"/>
+                            <Setter Property="FontWeight" Value="Light"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ContentBorder" Property="Background" Value="{StaticResource FocusedControl_Background_DarkMode}"/>
+                            <Setter TargetName="ContentBorder" Property="BorderBrush" Value="{StaticResource FocusedControl_Border_DarkMode}"/>
+                            <Setter Property="Background" Value="{StaticResource FocusedControl_Background_DarkMode}"/>
+                            <Setter Property="Foreground" Value="{StaticResource FocusedControl_Foreground_DarkMode}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <SolidColorBrush x:Key="Scrollbar_Background_DarkMode" Color="#303030"/>
+    <SolidColorBrush x:Key="Scrollbar_Foreground_DarkMode" Color="#999999"/>
+    <SolidColorBrush x:Key="Scrollbar_Border_DarkMode" Color="#353535"/>
+
+    <SolidColorBrush x:Key="StatusBar_Background_DarkMode" Color="#404040"/>
+    <SolidColorBrush x:Key="StatusBar_Foreground_DarkMode" Color="#DFDFDF"/>
+
+</ResourceDictionary>
