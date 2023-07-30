@@ -1,4 +1,4 @@
-﻿using MiniTimeLogger.Windows;
+﻿using MiniTimeLogger.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,19 +14,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MiniTimeLogger
+namespace MiniTimeLogger.Controls
 {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Interaktionslogik für CategoryGridControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CategoryGridControl : UserControl
     {
-        public MainWindow()
+        public CategoryGridControl()
         {
             InitializeComponent();
+        }
 
-            OrderSelectionWindow orderSelectionWindow = new OrderSelectionWindow();
-            orderSelectionWindow.Show();
+        public void AddCategoryData(Category category)
+        {
+
         }
     }
 }

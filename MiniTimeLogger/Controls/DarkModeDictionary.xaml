@@ -10,10 +10,6 @@
     <SolidColorBrush x:Key="Control_Foreground_DarkMode" Color="#DFDFDF"/>
     <SolidColorBrush x:Key="Control_Border_DarkMode" Color="#353535"/>
 
-    <SolidColorBrush x:Key="Content_Background_DarkMode" Color="#1E1E1E"/>
-    <SolidColorBrush x:Key="Content_Foreground_DarkMode" Color="#EEEEEE"/>
-    <SolidColorBrush x:Key="Content_Border_DarkMode" Color="#353535"/>
-
     <SolidColorBrush x:Key="FocusedControl_Background_DarkMode" Color="#2D2D2D"/>
     <SolidColorBrush x:Key="FocusedControl_Foreground_DarkMode" Color="#FAFAFA"/>
     <SolidColorBrush x:Key="FocusedControl_Border_DarkMode" Color="#353535"/>
@@ -22,7 +18,27 @@
     <SolidColorBrush x:Key="InactiveControl_Foreground_DarkMode" Color="#BFBFBF"/>
     <SolidColorBrush x:Key="InactiveControl_Border_DarkMode" Color="#282828"/>
 
-    <Style x:Key="CheckBox_DarkMode" TargetType="CheckBox">
+    <SolidColorBrush x:Key="Content_Background_DarkMode" Color="#1E1E1E"/>
+    <SolidColorBrush x:Key="Content_Foreground_DarkMode" Color="#EEEEEE"/>
+    <SolidColorBrush x:Key="Content2_Foreground_DarkMode" Color="#AAAAAA"/>
+    <SolidColorBrush x:Key="Content_Border_DarkMode" Color="#353535"/>
+
+    <SolidColorBrush x:Key="HoveredContent_Background_DarkMode" Color="#2D2D2D"/>
+    <SolidColorBrush x:Key="HoveredContent_Foreground_DarkMode" Color="#FAFAFA"/>
+    <SolidColorBrush x:Key="HoveredContent2_Foreground_DarkMode" Color="#BABABA"/>
+    <SolidColorBrush x:Key="HoveredContent_Border_DarkMode" Color="#353535"/>
+
+    <SolidColorBrush x:Key="SelectedContent_Background_DarkMode" Color="#704000"/>
+    <SolidColorBrush x:Key="SelectedContent_Foreground_DarkMode" Color="#FAFAFA"/>
+    <SolidColorBrush x:Key="SelectedContent2_Foreground_DarkMode" Color="#BABABA"/>
+    <SolidColorBrush x:Key="SelectedContent_Border_DarkMode" Color="#353535"/>
+
+    <SolidColorBrush x:Key="ActiveContent_Background_DarkMode" Color="#004000"/>
+    <SolidColorBrush x:Key="ActiveContent_Foreground_DarkMode" Color="#BAFF9A"/>
+    <SolidColorBrush x:Key="ActiveContent2_Foreground_DarkMode" Color="#BABABA"/>
+    <SolidColorBrush x:Key="ActiveContent_Border_DarkMode" Color="#353535"/>
+
+    <Style x:Key="CheckBox_DarkMode" TargetType="{x:Type CheckBox}">
         <Style.Setters>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontWeight" Value="Regular"/>
@@ -31,7 +47,7 @@
         </Style.Setters>
     </Style>
 
-    <Style x:Key="Label_DarkMode" TargetType="Label">
+    <Style x:Key="Label_DarkMode" TargetType="{x:Type Label}">
         <Style.Setters>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontWeight" Value="Regular"/>
@@ -203,10 +219,11 @@
                     <Grid>
                         <Border x:Name="ContentBorder">
                             <Border x:Name="FocusBorder" BorderBrush="{StaticResource Button_Pressed_Background_DarkMode}">
-                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center"
-                                                              HorizontalAlignment="Center"
-                                                              ContentSource="Header" Margin="12,2,12,2"
-                                                              RecognizesAccessKey="True"/>
+                                <ContentPresenter x:Name="ContentSite"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  ContentSource="Header" Margin="12,2,12,2"
+                                                  RecognizesAccessKey="True"/>
                             </Border>
                         </Border>
                     </Grid>
@@ -241,11 +258,59 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ListBoxItem_DarkMode" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Background" Value="{StaticResource Content_Background_DarkMode}"/>
+        <Setter Property="Foreground" Value="{StaticResource Content_Foreground_DarkMode}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock x:Name="TextBlock_Order"
+                                   Background="{TemplateBinding Background}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   Text="{Binding Order}"
+                                   HorizontalAlignment="Stretch"/>
+                        
+                        <TextBlock x:Name="TextBlock_Time"
+                                   Background="{TemplateBinding Background}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   Text="{Binding Time}"
+                                   HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="TextBlock_Order" Property="DocumentViewerBase.Background" Value="{StaticResource HoveredContent_Background_DarkMode}"/>
+                            <Setter TargetName="TextBlock_Order" Property="DocumentViewerBase.Foreground" Value="{StaticResource HoveredContent_Foreground_DarkMode}"/>
+                            <Setter TargetName="TextBlock_Time" Property="DocumentViewerBase.Background" Value="{StaticResource HoveredContent_Background_DarkMode}"/>
+                            <Setter TargetName="TextBlock_Time" Property="DocumentViewerBase.Foreground" Value="{StaticResource HoveredContent2_Foreground_DarkMode}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="TextBlock_Order" Property="DocumentViewerBase.Background" Value="{StaticResource SelectedContent_Background_DarkMode}"/>
+                            <Setter TargetName="TextBlock_Order" Property="DocumentViewerBase.Foreground" Value="{StaticResource SelectedContent_Foreground_DarkMode}"/>
+                            <Setter TargetName="TextBlock_Time" Property="DocumentViewerBase.Background" Value="{StaticResource SelectedContent_Background_DarkMode}"/>
+                            <Setter TargetName="TextBlock_Time" Property="DocumentViewerBase.Foreground" Value="{StaticResource SelectedContent2_Foreground_DarkMode}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <SolidColorBrush x:Key="Scrollbar_Background_DarkMode" Color="#303030"/>
     <SolidColorBrush x:Key="Scrollbar_Foreground_DarkMode" Color="#999999"/>
     <SolidColorBrush x:Key="Scrollbar_Border_DarkMode" Color="#353535"/>
 
     <SolidColorBrush x:Key="StatusBar_Background_DarkMode" Color="#404040"/>
     <SolidColorBrush x:Key="StatusBar_Foreground_DarkMode" Color="#DFDFDF"/>
+    <SolidColorBrush x:Key="StatusBar_Border_DarkMode" Color="Transparent"/>
+
 
 </ResourceDictionary>

@@ -5,6 +5,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using MiniTimeLogger.Windows;
@@ -122,17 +123,17 @@ namespace MiniTimeLogger.Support
             }
         }
 
-        public static void LogDebug(string message, params string[] formatParameters) => EHLogDebug(message, formatParameters);
-        public static void LogWarning(string message, params string[] formatParameters) => EHLogWarning(message, formatParameters);
-        public static void LogGenericError(string message, params string[] formatParameters) => EHLogGenericError(message, formatParameters);
+        public static void LogDebug(string message, params object[] formatParameters) => EHLogDebug(message, formatParameters);
+        public static void LogWarning(string message, params object[] formatParameters) => EHLogWarning(message, formatParameters);
+        public static void LogGenericError(string message, params object[] formatParameters) => EHLogGenericError(message, formatParameters);
         public static void LogGenericError(Exception exception) => EHLogGenericError(exception);
         public static void LogCriticalError(Exception exception) => EHLogCriticalError(exception);
 
-        public static void MsgBox(MessageSeverityTypes type, string message, params string[] formatParameters)
+        public static void MsgBox(MessageSeverityTypes type, string message, params object[] formatParameters)
         {
             MsgBox(type, message, null, formatParameters);
         }
-        public static void MsgBox(MessageSeverityTypes type, string message, Window owner, params string[] formatParameters)
+        public static void MsgBox(MessageSeverityTypes type, string message, Window owner, params object[] formatParameters)
         {
             LogEntryType logtype;
 
@@ -152,7 +153,12 @@ namespace MiniTimeLogger.Support
             // TODO: Change to CustomMsgBoxControl
             EHMsgBox(logtype, message, owner, formatParameters);
         }
-        public static MessageBoxResult MsgBoxYesNo(string message, params string[] formatParameters) => EHMsgBoxYesNo(message, null, formatParameters);
-        public static MessageBoxResult MsgBoxYesNo(string message, Window owner, params string[] formatParameters) => EHMsgBoxYesNo(message, owner, formatParameters);
+        public static MessageBoxResult MsgBoxYesNo(string message, params object[] formatParameters) => EHMsgBoxYesNo(message, null, formatParameters);
+        public static MessageBoxResult MsgBoxYesNo(string message, Window owner, params object[] formatParameters) => EHMsgBoxYesNo(message, owner, formatParameters);
+
+        public static string GetCaller([CallerMemberName] string caller = null)
+        {
+            return caller;
+        }
     }
 }

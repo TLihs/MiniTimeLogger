@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="MiniTimeLogger.Controls.ListBoxOrderItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MiniTimeLogger.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="250">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source=".\DarkModeDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="0,2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock x:Name="TextBlock_Order"
+                   Background="{TemplateBinding Background}"
+                   Foreground="{TemplateBinding Foreground}"
+                   Text="{Binding Order}"
+                   HorizontalAlignment="Stretch"/>
+
+        <TextBlock x:Name="TextBlock_Time"
+                   Background="{TemplateBinding Background}"
+                   Foreground="{TemplateBinding Foreground}"
+                   Text="{Binding Time}"
+                   HorizontalAlignment="Right"/>
+    </Grid>
+</UserControl>
