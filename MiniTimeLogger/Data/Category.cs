@@ -31,6 +31,7 @@ namespace MiniTimeLogger.Data
 
             _control = new CategoryControl();
             _control.LoadCategoryData(this);
+            CategoryGridControl.Categories.Add(_control);
         }
 
         private Category(int id) : base(id)
@@ -40,11 +41,12 @@ namespace MiniTimeLogger.Data
 
             _control = new CategoryControl();
             _control.LoadCategoryData(this);
+            CategoryGridControl.Categories.Add(_control);
         }
 
-        public static Category CreateCategory(string name, string description = "")
+        public static Category CreateCategory(Category parent, string name, string description = "")
         {
-            LogDebug($"OrderCategory::[static]CreateCategory({name})");
+            LogDebug($"{ThisStaticType}::[static]{GetCaller()}({name})");
 
             try
             {
@@ -53,23 +55,42 @@ namespace MiniTimeLogger.Data
                 
                 Category category = new Category()
                 {
+                    Parent = parent,
                     Name = name,
                     Description = description
                 };
+                
+                if (parent != null)
+                    parent.SubCategory = category;
+
+                CategoryObjects.Add(category);
 
                 return category;
             }
             catch (Exception ex)
             {
                 LogGenericError(ex);
-                LogGenericError($"OrderCategory::[static]{GetCaller()} - Failed to create category.");
+                LogGenericError($"{ThisStaticType}::[static]{GetCaller()} - Failed to create category.");
                 return null;
             }
         }
 
+        public static void Unload()
+        {
+            foreach (Category category in CategoryObjects)
+                category.UnloadCategory();
+        }
+
+        public void UnloadCategory()
+        {
+            foreach (CategoryItem categoryItem in CategoryItems)
+                categoryItem.UnloadCategoryItem();
+            _control?.UnloadCategoryData();
+        }
+
         private static Category LoadCategory(Category parent, int id, string name, string description = "")
         {
-            LogDebug($"OrderCategory::[static]LoadCategory({(parent != null ? parent.Name : "[null]")}, {id}, {name})");
+            LogDebug($"{ThisStaticType}::[static]{GetCaller()}({(parent != null ? parent.Name : "[null]")}, {id}, {name})");
 
             try
             {
@@ -92,7 +113,7 @@ namespace MiniTimeLogger.Data
             catch (Exception ex)
             {
                 LogGenericError(ex);
-                LogGenericError($"OrderCategory::[static]{GetCaller()} - Failed to load Category data.");
+                LogGenericError($"{ThisStaticType}::[static]{GetCaller()} - Failed to load Category data.");
                 return null;
             }
         }
@@ -116,7 +137,7 @@ namespace MiniTimeLogger.Data
             catch (Exception ex)
             {
                 LogGenericError(ex);
-                LogGenericError($"OrderCategory::[static]{GetCaller()} - Failed to read element: {categoryElement}");
+                LogGenericError($"{ThisStaticType}::[static]{GetCaller()} - Failed to read element: {categoryElement}");
             }
         }
 
@@ -136,13 +157,13 @@ namespace MiniTimeLogger.Data
             catch (Exception ex)
             {
                 LogGenericError(ex);
-                LogGenericError($"OrderCategory::[static]{GetCaller()} - Failed to save category {this} to {parentElement}");
+                LogGenericError($"{ThisStaticType}::[static]{GetCaller()} - Failed to save category {this} to {parentElement}");
             }
         }
 
         public static void InitializeCategories(XElement categoryList)
         {
-            LogDebug("OrderCategory::[static]InitializeCategories({0})", categoryList);
+            LogDebug($"{ThisStaticType}::[static]{GetCaller()}({categoryList})");
 
             try
             {
@@ -152,7 +173,7 @@ namespace MiniTimeLogger.Data
             catch (Exception ex)
             {
                 LogGenericError(ex);
-                LogGenericError($"OrderCategory::[static]{GetCaller()} - Failed to initialize categories.");
+                LogGenericError($"{ThisStaticType}::[static]{GetCaller()} - Failed to initialize categories.");
             }
         }
     }

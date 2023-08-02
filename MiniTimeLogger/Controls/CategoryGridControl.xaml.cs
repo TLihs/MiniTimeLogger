@@ -1,6 +1,8 @@
 ﻿using MiniTimeLogger.Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using static MiniTimeLogger.Support.ExceptionHandling;
+
 namespace MiniTimeLogger.Controls
 {
     /// <summary>
@@ -21,14 +25,12 @@ namespace MiniTimeLogger.Controls
     /// </summary>
     public partial class CategoryGridControl : UserControl
     {
+        public static ObservableCollection<CategoryControl> Categories { get; set; } = new ObservableCollection<CategoryControl>();
+
         public CategoryGridControl()
         {
             InitializeComponent();
-        }
-
-        public void AddCategoryData(Category category)
-        {
-
+            StackPanel_Categories.ItemsSource = Categories;
         }
     }
 }

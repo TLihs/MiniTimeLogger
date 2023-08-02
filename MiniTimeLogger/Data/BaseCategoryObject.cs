@@ -29,6 +29,7 @@ namespace MiniTimeLogger.Data
 
         public static List<T1> CategoryObjects { get; } = new List<T1>();
         public static T1 GetCategoryObjectById(int id) => CategoryObjects.First(category => category.Id == id);
+        public static string ThisStaticType => typeof(T1).FullName;
 
         public virtual T1 Parent
         {
@@ -50,12 +51,16 @@ namespace MiniTimeLogger.Data
             {
                 if (!string.IsNullOrWhiteSpace(value) && value != _name)
                 {
-                    _name = value;
+                    if (CategoryObjects.FindAll(category => category.Name.Equals(value, StringComparison.OrdinalIgnoreCase)).Count == 0)
+                        _name = value;
+                    else
+                        LogWarning($"{GetType()}::[public]{nameof(Name)} - Category with that name already exists.");
                     OnPropertyChanged();
                 }
                 else if (string.IsNullOrWhiteSpace(value))
                 {
                     LogGenericError(new ArgumentNullException(nameof(Name)));
+                    OnPropertyChanged();
                 }
             }
         }

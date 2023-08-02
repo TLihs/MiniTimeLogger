@@ -9,15 +9,11 @@ namespace MiniTimeLogger.Windows
     /// <summary>
     /// Interaktionslogik für OrderSelectionWindow.xaml
     /// </summary>
-    public partial class OrderSelectionWindow : Window
+    public partial class CategorySelectionWindow : Window
     {
-        private ObservableCollection<OrderItemEntry> _orderItems = new ObservableCollection<OrderItemEntry>();
-        
-        public OrderSelectionWindow()
+        public CategorySelectionWindow()
         {
             InitializeComponent();
-
-            ListBox_Projects.ItemsSource = _orderItems;
         }
     }
 }

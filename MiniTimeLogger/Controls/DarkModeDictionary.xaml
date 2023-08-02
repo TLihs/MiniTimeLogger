@@ -38,6 +38,11 @@
     <SolidColorBrush x:Key="ActiveContent2_Foreground_DarkMode" Color="#BABABA"/>
     <SolidColorBrush x:Key="ActiveContent_Border_DarkMode" Color="#353535"/>
 
+    <SolidColorBrush x:Key="EditContent_Background_DarkMode" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="EditContent_Foreground_DarkMode" Color="#1E1E1E"/>
+    <SolidColorBrush x:Key="EditContent2_Foreground_DarkMode" Color="#BABABA"/>
+    <SolidColorBrush x:Key="EditContent_Border_DarkMode" Color="#353535"/>
+
     <Style x:Key="CheckBox_DarkMode" TargetType="{x:Type CheckBox}">
         <Style.Setters>
             <Setter Property="FontSize" Value="12"/>

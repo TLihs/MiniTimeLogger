@@ -72,7 +72,7 @@ namespace MiniTimeLogger.Support
                 CustomMsgBoxWindow.ShowError(e.Message);
         }
 
-        public static void Create(bool useFileLogging, string logPath = "")
+        public static void Create(bool useFileLogging, string logPath = null)
         {
             Debug.Print("Initializing ExceptionHandling...");
             CreateExceptionManagement(App.Current, AppDomain.CurrentDomain, true, useFileLogging);
@@ -98,7 +98,7 @@ namespace MiniTimeLogger.Support
 
         public static void Log(EXCEPTIONTYPES type, string message)
         {
-            EHLogGenericError("{0} ({1})", ExceptionToString(type), message);
+            EHLogGenericError($"{ExceptionToString(type)} ({message})");
         }
 
         public static void Log(LogEntryType type, string message)
@@ -129,10 +129,7 @@ namespace MiniTimeLogger.Support
         public static void LogGenericError(Exception exception) => EHLogGenericError(exception);
         public static void LogCriticalError(Exception exception) => EHLogCriticalError(exception);
 
-        public static void MsgBox(MessageSeverityTypes type, string message, params object[] formatParameters)
-        {
-            MsgBox(type, message, null, formatParameters);
-        }
+        public static void MsgBox(MessageSeverityTypes type, string message, params object[] formatParameters) => MsgBox(type, message, null, formatParameters);
         public static void MsgBox(MessageSeverityTypes type, string message, Window owner, params object[] formatParameters)
         {
             LogEntryType logtype;

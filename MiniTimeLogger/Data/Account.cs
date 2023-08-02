@@ -13,7 +13,7 @@ namespace MiniTimeLogger.Data
 
         public static bool Login(string username, string password)
         {
-            LogDebug($"Account::[static]{GetCaller()}");
+            LogDebug($"[static]Account::[static]{GetCaller()}");
             LogGenericError(new NotImplementedException("Account::[static]Login(<username>, <password>)"));
             return true;
         }

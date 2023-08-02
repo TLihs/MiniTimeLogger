@@ -41,8 +41,11 @@ namespace MiniTimeLogger.Controls
         public void UnloadCategoryItemData()
         {
             _categoryItem.PropertyChanged -= OnItemPropertyChanged;
-            Label_ItemText.Content = string.Empty;
-            Label_ItemText.ToolTip = string.Empty;
+            Label_ItemText.Dispatcher.Invoke(new Action(() =>
+            {
+                Label_ItemText.Content = string.Empty;
+                Label_ItemText.ToolTip = string.Empty;
+            }));
             _categoryItem = null;
         }
 

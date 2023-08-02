@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using static MiniTimeLogger.Support.ExceptionHandling;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 namespace MiniTimeLogger.Data
 {
@@ -47,8 +48,10 @@ namespace MiniTimeLogger.Data
                 if (_categoryParent != value)
                 {
                     _categoryParent?.CategoryItems.Remove(this);
+                    _categoryParent?.Control.StackPanel_CategoryItems.Children.Remove(_control);
                     _categoryParent = value;
                     _categoryParent?.CategoryItems.Add(this);
+                    _categoryParent?.Control.StackPanel_CategoryItems.Children.Add(_control);
                     OnPropertyChanged();
                 }
             }
@@ -76,7 +79,7 @@ namespace MiniTimeLogger.Data
             _control.LoadCategoryItemData(this);
         }
 
-        ~CategoryItem()
+        public void UnloadCategoryItem()
         {
             if (_control != null)
                 _control.UnloadCategoryItemData();
@@ -84,6 +87,8 @@ namespace MiniTimeLogger.Data
 
         public static CategoryItem CreateCategoryItem(CategoryItem parent, string name, string description = null)
         {
+            LogDebug($"{ThisStaticType}::[static]{GetCaller()}({(parent != null ? parent?.Name : "[null]")}, {name}, {description})");
+
             try
             {
                 Category category;
@@ -102,13 +107,14 @@ namespace MiniTimeLogger.Data
                     CategoryParent = category,
                     Parent = parent
                 };
+                CategoryObjects.Add(item);
 
                 return item;
             }
             catch (Exception ex)
             {
                 LogGenericError(ex);
-                LogGenericError($"{nameof(CategoryItem)}::[static]{nameof(CreateCategoryItem)}(...) - Failed to load Category data.");
+                LogGenericError($"{ThisStaticType}::[static]{GetCaller()}(...) - Failed to load Category data.");
                 return null;
             }
         }
@@ -116,7 +122,7 @@ namespace MiniTimeLogger.Data
 
         private static CategoryItem LoadCategoryItem(CategoryItem parent, int id, string name, string description = null)
         {
-            LogDebug($"OrderCategory::[static]LoadCategory({(parent != null ? parent.Name : "[null]")}, {id}, {name})");
+            LogDebug($"{ThisStaticType}::[static]{GetCaller()}({(parent != null ? parent?.Name : "[null]")}, {id}, {name})");
 
             try
             {
@@ -142,13 +148,15 @@ namespace MiniTimeLogger.Data
             catch (Exception ex)
             {
                 LogGenericError(ex);
-                LogGenericError($"OrderCategory::[static]{GetCaller()} - Failed to load Category data.");
+                LogGenericError($"{ThisStaticType}::[static]{GetCaller()} - Failed to load Category data.");
                 return null;
             }
         }
 
         private static void LoadCategoryItemDataRecursive(CategoryItem parent, XElement categoryElement)
         {
+            LogDebug($"{ThisStaticType}::[static]{GetCaller()}({(parent != null ? parent?.Name : "[null]")}, {categoryElement})");
+
             try
             {
                 CategoryItem categoryitem = LoadCategoryItem(parent,
@@ -168,12 +176,14 @@ namespace MiniTimeLogger.Data
             catch (Exception ex)
             {
                 LogGenericError(ex);
-                LogGenericError($"OrderCategory::[static]{GetCaller()} - Failed to read element: {categoryElement}");
+                LogGenericError($"{ThisStaticType}::[static]{GetCaller()} - Failed to read element: {categoryElement}");
             }
         }
 
         public void SaveCategoryItemRecursive(ref XElement parentElement)
         {
+            LogDebug($"{ThisStaticType}::[static]{GetCaller()}({parentElement})");
+
             try
             {
                 XElement categoryitemelement = new XElement("categoryitem");
@@ -189,13 +199,13 @@ namespace MiniTimeLogger.Data
             catch (Exception ex)
             {
                 LogGenericError(ex);
-                LogGenericError($"OrderCategory::[static]{GetCaller()} - Failed to write element {this} to {parentElement}");
+                LogGenericError($"{ThisStaticType}::[static]{GetCaller()} - Failed to write element {this} to {parentElement}");
             }
         }
 
         public static void InitializeCategoryItems(XElement itemList)
         {
-            LogDebug("OrderCategory::[static]InitializeCategories({0})", itemList);
+            LogDebug($"{ThisStaticType}::[static]{GetCaller()}({itemList})");
 
             try
             {
@@ -205,7 +215,7 @@ namespace MiniTimeLogger.Data
             catch (Exception ex)
             {
                 LogGenericError(ex);
-                LogGenericError($"OrderCategory::[static]{GetCaller()} - Failed to initialize categories.");
+                LogGenericError($"{ThisStaticType}::[static]{GetCaller()} - Failed to initialize categories.");
             }
         }
     }
