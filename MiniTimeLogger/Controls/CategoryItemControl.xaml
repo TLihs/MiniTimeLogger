@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MiniTimeLogger.Controls"
+             xmlns:base="clr-namespace:MiniTimeLogger.Controls.Base"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="200">
 
@@ -17,25 +18,8 @@
 
     <Border BorderBrush="{StaticResource Content_Border_DarkMode}"
             BorderThickness="1">
-        <Label x:Name="Label_ItemText"
-               HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            <Label.Style>
-                <Style TargetType="Label">
-                    <Setter Property="Background" Value="{StaticResource Content_Background_DarkMode}"/>
-                    <Setter Property="Foreground" Value="{StaticResource Content_Foreground_DarkMode}"/>
-                    
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource HoveredContent_Background_DarkMode}"/>
-                            <Setter Property="Foreground" Value="{StaticResource HoveredContent_Foreground_DarkMode}"/>
-                        </Trigger>
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" Value="{StaticResource ActiveContent_Background_DarkMode}"/>
-                            <Setter Property="Foreground" Value="{StaticResource ActiveContent_Foreground_DarkMode}"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
+        <base:EditableTextControl x:Name="EditableTextControl_Content"
+                                  FontSize="13" FontWeight="Regular"
+                                  InitiallyFocusable="True"/>
     </Border>
 </UserControl>

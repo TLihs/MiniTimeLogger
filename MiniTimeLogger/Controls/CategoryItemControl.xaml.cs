@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using static MiniTimeLogger.Support.ExceptionHandling;
+
 namespace MiniTimeLogger.Controls
 {
     /// <summary>
@@ -21,40 +23,21 @@ namespace MiniTimeLogger.Controls
     /// </summary>
     public partial class CategoryItemControl : UserControl
     {
-        private CategoryItem _categoryItem;
+        public CategoryItem CategoryObject
+        {
+            get => (CategoryItem)EditableTextControl_Content.CategoryObject;
+            set => EditableTextControl_Content.CategoryObject = value;
+        }
 
-        public CategoryItem Item => _categoryItem;
-        
         public CategoryItemControl()
         {
             InitializeComponent();
+            EditableTextControl_Content.Height = double.NaN;
         }
 
-        public void LoadCategoryItemData(CategoryItem item)
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
-            _categoryItem = item;
-            Label_ItemText.Content = _categoryItem.Name;
-            Label_ItemText.ToolTip = _categoryItem.Description;
-            _categoryItem.PropertyChanged += OnItemPropertyChanged;
-        }
-
-        public void UnloadCategoryItemData()
-        {
-            _categoryItem.PropertyChanged -= OnItemPropertyChanged;
-            Label_ItemText.Dispatcher.Invoke(new Action(() =>
-            {
-                Label_ItemText.Content = string.Empty;
-                Label_ItemText.ToolTip = string.Empty;
-            }));
-            _categoryItem = null;
-        }
-
-        private void OnItemPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(CategoryItem.Name))
-                Label_ItemText.Content = _categoryItem.Name;
-            if (e.PropertyName != nameof(CategoryItem.Description))
-                Label_ItemText.ToolTip = _categoryItem.Description;
+            base.OnRenderSizeChanged(sizeInfo);
         }
     }
 }

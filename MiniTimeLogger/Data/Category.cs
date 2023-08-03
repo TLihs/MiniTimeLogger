@@ -30,7 +30,7 @@ namespace MiniTimeLogger.Data
             // which generates a new ID for this Category object.
 
             _control = new CategoryControl();
-            _control.LoadCategoryData(this);
+            _control.CategoryObject = this;
             CategoryGridControl.Categories.Add(_control);
         }
 
@@ -40,7 +40,7 @@ namespace MiniTimeLogger.Data
             // except 'id' is smaller than 0 (which shouldn't happen).
 
             _control = new CategoryControl();
-            _control.LoadCategoryData(this);
+            _control.CategoryObject = this;
             CategoryGridControl.Categories.Add(_control);
         }
 
@@ -85,7 +85,6 @@ namespace MiniTimeLogger.Data
         {
             foreach (CategoryItem categoryItem in CategoryItems)
                 categoryItem.UnloadCategoryItem();
-            _control?.UnloadCategoryData();
         }
 
         private static Category LoadCategory(Category parent, int id, string name, string description = "")

@@ -2,14 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Linq;
 using static MiniTimeLogger.Support.ExceptionHandling;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace MiniTimeLogger.Data
 {
@@ -36,8 +39,13 @@ namespace MiniTimeLogger.Data
             get => base.Parent;
             set
             {
-                if (value != base.Parent)
+                if (base.Parent != value)
+                {
+                    base.Parent?.CategoryItems.Remove(this);
+                    base.Parent?.RefreshControlSize();
                     base.Parent = value;
+                    base.Parent?.CategoryItems.Add(this);
+                }
             }
         }
         public Category CategoryParent
@@ -66,8 +74,13 @@ namespace MiniTimeLogger.Data
             // If this constructor is used, ID will be by default -1 in the constructor of the base class,
             // which generates a new ID for this Category object.
 
-            _control = new CategoryItemControl();
-            _control.LoadCategoryItemData(this);
+            _control = new CategoryItemControl
+            {
+                CategoryObject = this
+            };
+
+            CategoryItems.CollectionChanged += OnCategoryItemListChanged;
+            Control.SizeChanged += OnRenderSizeChanged;
         }
 
         private CategoryItem(int id) : base(id)
@@ -75,14 +88,48 @@ namespace MiniTimeLogger.Data
             // If this constructor is used, the id omitted will be used and no new ID will be generated,
             // except 'id' is smaller than 0 (which shouldn't happen).
 
-            _control = new CategoryItemControl();
-            _control.LoadCategoryItemData(this);
+            _control = new CategoryItemControl
+            {
+                CategoryObject = this
+            };
+
+            CategoryItems.CollectionChanged += OnCategoryItemListChanged;
+            Control.SizeChanged += OnRenderSizeChanged;
         }
 
         public void UnloadCategoryItem()
         {
             if (_control != null)
-                _control.UnloadCategoryItemData();
+                _control = null;
+        }
+
+        private void OnCategoryItemListChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            LogDebug($"{ThisStaticType}::{GetCaller()}()");
+        }
+
+        public void OnRenderSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            LogDebug($"{ThisStaticType}::{GetCaller()}()");
+
+            Parent?.RefreshControlSize();
+        }
+
+        public void RefreshControlSize()
+        {
+            LogDebug($"{ThisStaticType}::{GetCaller()}()");
+
+            if (_control != null)
+            {
+                double newheight = double.NaN;
+                if (CategoryItems.Count > 1)
+                    newheight = CategoryItems.Sum(item => item.Control.ActualHeight);
+
+                if (newheight == 0)
+                    newheight = double.NaN;
+
+                _control.Height = newheight;
+            }
         }
 
         public static CategoryItem CreateCategoryItem(CategoryItem parent, string name, string description = null)
@@ -93,7 +140,7 @@ namespace MiniTimeLogger.Data
             {
                 Category category;
                 if (parent == null)
-                    category = (Category)Category.CategoryObjects[0];
+                    category = Category.CategoryObjects[0];
                 else
                     category = parent.CategoryParent.SubCategory;
 
@@ -128,7 +175,7 @@ namespace MiniTimeLogger.Data
             {
                 Category category;
                 if (parent == null)
-                    category = (Category)Category.CategoryObjects[0];
+                    category = Category.CategoryObjects[0];
                 else
                     category = parent.CategoryParent.SubCategory;
 

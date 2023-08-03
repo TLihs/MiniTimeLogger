@@ -10,7 +10,9 @@ using static MiniTimeLogger.Support.ExceptionHandling;
 
 namespace MiniTimeLogger.Data
 {
-    public abstract class BaseCategoryObject<T1, T2> where T1 : BaseCategoryObject<T1, T2> where T2 : CategoryItem, INotifyPropertyChanged
+    public abstract class BaseCategoryObject<T1, T2>
+        where T1 : BaseCategoryObject<T1, T2>
+        where T2 : CategoryItem, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

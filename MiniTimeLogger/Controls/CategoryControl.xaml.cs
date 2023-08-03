@@ -22,71 +22,27 @@ namespace MiniTimeLogger.Controls
     /// </summary>
     public partial class CategoryControl : UserControl
     {
-        private Category _category;
-        private bool _editMode = false;
-        
-        public Category Item => _category;
+        public Category CategoryObject
+        {
+            get => (Category)EditableTextControl_Content.CategoryObject;
+            set => EditableTextControl_Content.CategoryObject = value;
+        }
         
         public CategoryControl()
         {
             InitializeComponent();
+            EditableTextControl_Content.Height = double.NaN;
+            EditableTextControl_Content.MouseSingleClick += OnMouseSingleClick;
         }
 
-        public void LoadCategoryData(Category item)
+        private void OnMouseSingleClick(object sender, MouseEventArgs e)
         {
-            LogDebug($"{GetType()}::{GetCaller()}({item})");
-            _category = item;
-            TextBox_ItemText.Text = _category.Name;
-            TextBox_ItemText.ToolTip = _category.Description;
-            _category.PropertyChanged += OnItemPropertyChanged;
+            SortItemsByName();
         }
 
-        public void UnloadCategoryData()
+        private void SortItemsByName()
         {
-            LogDebug($"{GetType()}::{GetCaller()}()");
-            _category.PropertyChanged -= OnItemPropertyChanged;
-            TextBox_ItemText.Text = string.Empty;
-            TextBox_ItemText.ToolTip = string.Empty;
-            _category = null;
-        }
 
-        private void OnItemPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(Category.Name))
-                TextBox_ItemText.Text = _category.Name;
-            if (e.PropertyName != nameof(Category.Description))
-                TextBox_ItemText.ToolTip = _category.Description;
-        }
-
-        private void Label_ItemText_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (_editMode)
-                return;
-
-            TextBox_ItemText.IsReadOnly = false;
-            TextBox_ItemText.Select(0, 0);
-            _editMode = true;
-        }
-
-        private void TextBox_ItemText_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!_editMode)
-                return;
-
-            if (string.IsNullOrWhiteSpace(TextBox_ItemText.Text))
-                TextBox_ItemText.Text = _category.Name;
-            else
-                _category.Name = TextBox_ItemText.Text;
-
-            TextBox_ItemText.Select(0, 0);
-            TextBox_ItemText.IsReadOnly = true;
-            _editMode = false;
-        }
-
-        private void TextBox_ItemText_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-                TextBox_ItemText_LostFocus(null, null);
         }
     }
 }

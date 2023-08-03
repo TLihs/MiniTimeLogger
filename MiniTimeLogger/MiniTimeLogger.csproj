@@ -72,6 +72,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\Base\EditableTextControl.xaml.cs">
+      <DependentUpon>EditableTextControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CategoryControl.xaml.cs">
       <DependentUpon>CategoryControl.xaml</DependentUpon>
     </Compile>
@@ -93,6 +96,10 @@
     <Compile Include="Windows\CategorySelectionWindow.xaml.cs">
       <DependentUpon>CategorySelectionWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\Base\EditableTextControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\CategoryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
