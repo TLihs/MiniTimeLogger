@@ -72,14 +72,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\Base\EditableTextControl.xaml.cs">
-      <DependentUpon>EditableTextControl.xaml</DependentUpon>
+    <Compile Include="Controls\Base\BaseCategoryControl.cs" />
+    <Compile Include="Controls\Base\BaseCategoryItemControl.cs" />
+    <Compile Include="Controls\Base\BaseCategoryObjectControl.cs" />
+    <Compile Include="Controls\CategoryContentControl.xaml.cs">
+      <DependentUpon>CategoryContentControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CategoryControl.xaml.cs">
       <DependentUpon>CategoryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CategoryGridControl.xaml.cs">
       <DependentUpon>CategoryGridControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CategoryInformationControl.xaml.cs">
+      <DependentUpon>CategoryInformationControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CategoryItemControl.xaml.cs">
       <DependentUpon>CategoryItemControl.xaml</DependentUpon>
@@ -88,6 +94,7 @@
     <Compile Include="Data\BaseCategoryObject.cs" />
     <Compile Include="Data\Category.cs" />
     <Compile Include="Data\CategoryItem.cs" />
+    <Compile Include="Input\MouseHandling.cs" />
     <Compile Include="Support\ExceptionHandling.cs" />
     <Compile Include="Support\GUIHandling.cs" />
     <Compile Include="Windows\CustomMsgBoxWindow.xaml.cs">
@@ -96,7 +103,7 @@
     <Compile Include="Windows\CategorySelectionWindow.xaml.cs">
       <DependentUpon>CategorySelectionWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\Base\EditableTextControl.xaml">
+    <Page Include="Controls\CategoryContentControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -105,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\CategoryGridControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CategoryInformationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

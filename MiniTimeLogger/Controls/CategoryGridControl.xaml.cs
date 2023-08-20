@@ -31,6 +31,16 @@ namespace MiniTimeLogger.Controls
         {
             InitializeComponent();
             StackPanel_Categories.ItemsSource = Categories;
+            Button_AddCategory.Content = "+";
+        }
+
+        private void Button_AddCategory_Click(object sender, RoutedEventArgs e)
+        {
+            Category category = Category.CreateCategory(Category.CategoryObjects.Last(), "New Category", "");
+            //category.Control.EditableTextControl_Content.TextBox_ItemText.Focusable = true;
+            //category.Control.EditableTextControl_Content.TextBox_ItemText.IsReadOnly = false;
+            //category.Control.EditableTextControl_Content.TextBox_ItemText.Focus();
+            //category.Control.EditableTextControl_Content.TextBox_ItemText.Select(0, 0);
         }
     }
 }

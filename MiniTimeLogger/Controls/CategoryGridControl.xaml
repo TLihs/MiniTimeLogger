@@ -16,16 +16,35 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border HorizontalAlignment="Stretch" BorderBrush="{StaticResource Content_Border_DarkMode}" BorderThickness="1">
-        <ItemsControl x:Name="StackPanel_Categories"
-                      HorizontalAlignment="Stretch">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Stretch"
-                                Background="{StaticResource Content_Background_DarkMode}"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+    <Border BorderBrush="{StaticResource Control_Border_DarkMode}"
+            BorderThickness="1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+        
+            <Border Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    BorderBrush="{StaticResource Content_Border_DarkMode}"
+                    BorderThickness="1">
+                <ItemsControl x:Name="StackPanel_Categories"
+                              HorizontalAlignment="Stretch">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Stretch"
+                                        Background="{StaticResource Content_Background_DarkMode}"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Border>
+        
+            <Button x:Name="Button_AddCategory"
+                    Grid.Column="1"
+                    Style="{StaticResource Button_DarkMode}"
+                    Height="50" VerticalAlignment="Top"
+                    Click="Button_AddCategory_Click"/>
+        </Grid>
     </Border>
 </UserControl>

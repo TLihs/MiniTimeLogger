@@ -1,4 +1,5 @@
 ﻿using MiniTimeLogger.Controls;
+using MiniTimeLogger.Controls.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +10,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Xml.Linq;
 using static MiniTimeLogger.Support.ExceptionHandling;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
@@ -16,11 +19,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace MiniTimeLogger.Data
 {
-    public class CategoryItem : BaseCategoryObject<CategoryItem, CategoryItem>, INotifyPropertyChanged
+    public class CategoryItem : BaseCategoryObject<CategoryItem, CategoryItemControl>, INotifyPropertyChanged
     {
         private string _referenceKey;
         private Category _categoryParent;
-        private CategoryItemControl _control;
 
         public string ReferenceKey
         {
@@ -39,12 +41,13 @@ namespace MiniTimeLogger.Data
             get => base.Parent;
             set
             {
-                if (base.Parent != value)
+                if (base.Parent == null || base.Parent != value)
                 {
-                    base.Parent?.CategoryItems.Remove(this);
+                    base.Parent?.RemoveCategoryItem(this);
                     base.Parent?.RefreshControlSize();
                     base.Parent = value;
-                    base.Parent?.CategoryItems.Add(this);
+                    base.Parent?.AddCategoryItem(this);
+                    base.Parent?.RefreshControlSize();
                 }
             }
         }
@@ -53,28 +56,28 @@ namespace MiniTimeLogger.Data
             get => _categoryParent;
             set
             {
+                LogDebug($"{GetType()}::{GetCaller()} - value = {value}");
                 if (_categoryParent != value)
                 {
-                    _categoryParent?.CategoryItems.Remove(this);
-                    _categoryParent?.Control.StackPanel_CategoryItems.Children.Remove(_control);
+                    _categoryParent?.RemoveCategoryItem(this);
                     _categoryParent = value;
-                    _categoryParent?.CategoryItems.Add(this);
-                    _categoryParent?.Control.StackPanel_CategoryItems.Children.Add(_control);
+                    _categoryParent?.AddCategoryItem(this);
+                    RefreshItemsLink();
                     OnPropertyChanged();
                 }
             }
         }
         public bool IsMainCategoryItem => Parent == null;
         public bool IsReferenceKeyMissing => ReferenceKey == null;
-        public bool IsLastCategoryItem => CategoryParent.IsLastCategory;
-        public CategoryItemControl Control => _control;
+        public bool IsItemOfLastCategory => CategoryParent.IsLastCategory;
+        public bool HasChildren => CategoryItems.Count > 0;
 
         private CategoryItem() : base()
         {
             // If this constructor is used, ID will be by default -1 in the constructor of the base class,
             // which generates a new ID for this Category object.
 
-            _control = new CategoryItemControl
+            Control = new CategoryItemControl
             {
                 CategoryObject = this
             };
@@ -88,7 +91,7 @@ namespace MiniTimeLogger.Data
             // If this constructor is used, the id omitted will be used and no new ID will be generated,
             // except 'id' is smaller than 0 (which shouldn't happen).
 
-            _control = new CategoryItemControl
+            Control = new CategoryItemControl
             {
                 CategoryObject = this
             };
@@ -99,8 +102,18 @@ namespace MiniTimeLogger.Data
 
         public void UnloadCategoryItem()
         {
-            if (_control != null)
-                _control = null;
+            if (Control != null)
+                Control = null;
+        }
+
+        private void RefreshItemsLink()
+        {
+            if (CategoryParent == null)
+                foreach (CategoryItem item in CategoryItems)
+                    item.CategoryParent = null;
+            else if (HasChildren)
+                foreach (CategoryItem item in CategoryItems)
+                    item.CategoryParent = CategoryParent?.SubCategory;
         }
 
         private void OnCategoryItemListChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -113,23 +126,6 @@ namespace MiniTimeLogger.Data
             LogDebug($"{ThisStaticType}::{GetCaller()}()");
 
             Parent?.RefreshControlSize();
-        }
-
-        public void RefreshControlSize()
-        {
-            LogDebug($"{ThisStaticType}::{GetCaller()}()");
-
-            if (_control != null)
-            {
-                double newheight = double.NaN;
-                if (CategoryItems.Count > 1)
-                    newheight = CategoryItems.Sum(item => item.Control.ActualHeight);
-
-                if (newheight == 0)
-                    newheight = double.NaN;
-
-                _control.Height = newheight;
-            }
         }
 
         public static CategoryItem CreateCategoryItem(CategoryItem parent, string name, string description = null)

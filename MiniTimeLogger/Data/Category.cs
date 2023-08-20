@@ -9,29 +9,30 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Input;
 using System.Xml.Linq;
 using static MiniTimeLogger.Support.ExceptionHandling;
 
 namespace MiniTimeLogger.Data
 {
-    public class Category : BaseCategoryObject<Category, CategoryItem>, INotifyPropertyChanged
+    public class Category : BaseCategoryObject<Category, CategoryControl>
     {
-        private CategoryControl _control;
-        
         public bool IsMainCategory => Parent == null;
         public Category SubCategory { get; private set; }
         public bool HasSubCategory => SubCategory != null;
         public bool IsLastCategory => !HasSubCategory;
-        public CategoryControl Control => _control;
 
         private Category() : base()
         {
             // If this constructor is used, ID will be by default -1 in the constructor of the base class,
             // which generates a new ID for this Category object.
 
-            _control = new CategoryControl();
-            _control.CategoryObject = this;
-            CategoryGridControl.Categories.Add(_control);
+            Control = new CategoryControl
+            {
+                CategoryObject = this
+            };
+            CategoryGridControl.Categories.Add(Control);
         }
 
         private Category(int id) : base(id)
@@ -39,9 +40,11 @@ namespace MiniTimeLogger.Data
             // If this constructor is used, the id omitted will be used and no new ID will be generated,
             // except 'id' is smaller than 0 (which shouldn't happen).
 
-            _control = new CategoryControl();
-            _control.CategoryObject = this;
-            CategoryGridControl.Categories.Add(_control);
+            Control = new CategoryControl
+            {
+                CategoryObject = this
+            };
+            CategoryGridControl.Categories.Add(Control);
         }
 
         public static Category CreateCategory(Category parent, string name, string description = "")

@@ -1,25 +1,58 @@
-﻿<UserControl x:Class="MiniTimeLogger.Controls.CategoryItemControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MiniTimeLogger.Controls"
-             xmlns:base="clr-namespace:MiniTimeLogger.Controls.Base"
-             mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="200">
+﻿<base:BaseCategoryItemControl x:Class="MiniTimeLogger.Controls.CategoryItemControl"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                              xmlns:local="clr-namespace:MiniTimeLogger.Controls"
+                              xmlns:base="clr-namespace:MiniTimeLogger.Controls.Base"
+                              mc:Ignorable="d" 
+                              d:DataContext="{d:DesignInstance Type=base:BaseCategoryItemControl}"
+                              d:DesignHeight="50" d:DesignWidth="200"
+                              MinHeight="40" Height="50"
+                              HorizontalAlignment="Stretch">
 
-    <UserControl.Resources>
+    <base:BaseCategoryItemControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source=".\DarkModeDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </UserControl.Resources>
+    </base:BaseCategoryItemControl.Resources>
 
-    <Border BorderBrush="{StaticResource Content_Border_DarkMode}"
-            BorderThickness="1">
-        <base:EditableTextControl x:Name="EditableTextControl_Content"
-                                  FontSize="13" FontWeight="Regular"
-                                  InitiallyFocusable="True"/>
-    </Border>
-</UserControl>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <local:CategoryContentControl x:Name="Label_Content"
+                                      Style="{StaticResource CategoryContentControl_DarkMode}"
+                                      FontSize="13" FontWeight="Regular"
+                                      Grid.Column="0" Grid.Row="1"
+                                      BorderThickness="1"/>
+
+        <Button x:Name="Button_AddSubItem"
+                Grid.Column="1" Grid.Row="1"
+                Style="{StaticResource Button_AddItem}"
+                Width="15"
+                Visibility="Collapsed"/>
+
+        <Button x:Name="Button_AddSiblingItemAbove"
+                Grid.Column="0" Grid.Row="0"
+                Style="{StaticResource Button_AddItem}"
+                Height="15"
+                Visibility="Collapsed"/>
+
+        <Button x:Name="Button_AddSiblingItemBelow"
+                Grid.Column="0" Grid.Row="2"
+                Style="{StaticResource Button_AddItem}"
+                Height="15"
+                Visibility="Collapsed"/>
+    </Grid>
+</base:BaseCategoryItemControl>

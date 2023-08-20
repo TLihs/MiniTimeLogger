@@ -70,6 +70,8 @@ namespace MiniTimeLogger.Support
             }
             else
                 CustomMsgBoxWindow.ShowError(e.Message);
+
+            // App.Current.Shutdown();
         }
 
         public static void Create(bool useFileLogging, string logPath = null)
