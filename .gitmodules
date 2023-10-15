@@ -1,3 +1,6 @@
 [submodule "WPFExceptionHandler"]
 	path = WPFExceptionHandler
 	url = https://github.com/TLihs/WPFExceptionHandler.git
+[submodule "PropertyGridControl"]
+	path = PropertyGridControl
+	url = https://github.com/TLihs/PropertyGridControl.git

@@ -90,10 +90,12 @@
     <Compile Include="Controls\CategoryItemControl.xaml.cs">
       <DependentUpon>CategoryItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PropertyControl\Base\BasePropertyControlItem.cs" />
     <Compile Include="Data\Account.cs" />
     <Compile Include="Data\BaseCategoryObject.cs" />
     <Compile Include="Data\Category.cs" />
     <Compile Include="Data\CategoryItem.cs" />
+    <Compile Include="Data\TimeLogEntry.cs" />
     <Compile Include="Input\MouseHandling.cs" />
     <Compile Include="Support\ExceptionHandling.cs" />
     <Compile Include="Support\GUIHandling.cs" />

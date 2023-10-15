@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,7 @@ namespace MiniTimeLogger.Data
     {
         private string _referenceKey;
         private Category _categoryParent;
+        private TimeLogEntry _currentTimeLogEntry = null;
 
         public string ReferenceKey
         {
@@ -71,6 +73,7 @@ namespace MiniTimeLogger.Data
         public bool IsReferenceKeyMissing => ReferenceKey == null;
         public bool IsItemOfLastCategory => CategoryParent.IsLastCategory;
         public bool HasChildren => CategoryItems.Count > 0;
+        public List<TimeLogEntry> TimeLogEntries { get; } = new List<TimeLogEntry>();
 
         private CategoryItem() : base()
         {
@@ -259,6 +262,32 @@ namespace MiniTimeLogger.Data
             {
                 LogGenericError(ex);
                 LogGenericError($"{ThisStaticType}::[static]{GetCaller()} - Failed to initialize categories.");
+            }
+        }
+
+        public void StartTimeLogging()
+        {
+            if (IsItemOfLastCategory)
+            {
+                _currentTimeLogEntry = TimeLogEntry.CreateTimeLogEntry(this, true);
+            }
+            else
+            {
+                CategoryItem categoryItem = CreateCategoryItem(this, "<new>");
+                categoryItem.StartTimeLogging();
+            }
+        }
+
+        public void EndTimeLogging()
+        {
+            if (IsItemOfLastCategory)
+            {
+                if (_currentTimeLogEntry != null)
+                {
+                    _currentTimeLogEntry.EndLogging();
+                    TimeLogEntries.Add(_currentTimeLogEntry);
+                    _currentTimeLogEntry = null;
+                }
             }
         }
     }

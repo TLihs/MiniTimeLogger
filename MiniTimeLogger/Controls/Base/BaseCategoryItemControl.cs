@@ -17,6 +17,7 @@ namespace MiniTimeLogger.Controls.Base
         public CategoryItemControl ParentControl => CategoryObject?.Parent?.Control;
         public CategoryItemControl FirstChildControl => CategoryObject?.CategoryItems?.FirstOrDefault()?.Control;
         public List<CategoryItemControl> ChildControls => CategoryObject?.CategoryItems?.Select(item => item.Control).ToList();
+        public bool IsCurrentlyLogging { get; set; }
 
         public void RefreshPosition(bool refreshChildItemPosition)
         {
@@ -87,6 +88,22 @@ namespace MiniTimeLogger.Controls.Base
             LogDebug($"{GetType()}::{GetCaller()}()");
 
             Height += offset;
+        }
+
+        protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
+        {
+            if (IsCurrentlyLogging)
+            {
+                CategoryObject.EndTimeLogging();
+                IsCurrentlyLogging = false;
+            }
+            else
+            {
+                CategoryObject.StartTimeLogging();
+                IsCurrentlyLogging = true;
+            }
+
+            base.OnMouseDoubleClick(e);
         }
     }
 }

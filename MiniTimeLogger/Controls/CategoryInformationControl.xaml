@@ -16,6 +16,18 @@
     </UserControl.Resources>
 
     <Grid>
+        <Grid x:Name="Grid_GeneralInformation">
             
+        </Grid>
+
+        <Grid x:Name="Grid_CategoryInformation"
+              Visibility="Collapsed">
+            
+        </Grid>
+
+        <Grid x:Name="Grid_CategoryItemInformation"
+              Visibility="Collapsed">
+            
+        </Grid>
     </Grid>
 </UserControl>
