@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniTimeLogger", "MiniTimeL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFExceptionHandler", "WPFExceptionHandler\WPFExceptionHandler\WPFExceptionHandler.csproj", "{25C92F3B-0DAD-4F9C-934D-89B56AB91689}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyGridControl", "PropertyGridControl\PropertyGridControl\PropertyGridControl.csproj", "{B1D45738-EC90-4ACC-9730-722A9454398C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{25C92F3B-0DAD-4F9C-934D-89B56AB91689}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25C92F3B-0DAD-4F9C-934D-89B56AB91689}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25C92F3B-0DAD-4F9C-934D-89B56AB91689}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D45738-EC90-4ACC-9730-722A9454398C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D45738-EC90-4ACC-9730-722A9454398C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D45738-EC90-4ACC-9730-722A9454398C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D45738-EC90-4ACC-9730-722A9454398C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
